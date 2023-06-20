@@ -2,6 +2,7 @@ import ListGroup from "./components/ListGroup";
 import Alert from "./components/Alert";
 import Buttons from "./components/Buttons";
 import { useState } from "react";
+import "./App.css";
 
 function App() {
   const [isAlertVisible, setAlertVisibility] = useState(false);
@@ -18,7 +19,7 @@ function App() {
   const thingHeading: string = "Things";
   return (
     <div>
-      {/* <ListGroup
+      <ListGroup
         items={characters}
         heading={charHeading}
         onSelectItem={(item: string): void => {
@@ -31,7 +32,7 @@ function App() {
         onSelectItem={(item: string): void => {
           console.log(item);
         }}
-      /> */}
+      />
       {isAlertVisible && (
         <Alert onClose={() => setAlertVisibility(false)}>
           <strong>This</strong> is an <strong>alert!!!</strong>
