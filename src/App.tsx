@@ -1,8 +1,9 @@
 import ListGroup from "./components/ListGroup";
 import Alert from "./components/Alert";
-import Buttons from "./components/Buttons";
+import Buttons from "./components/Buttons/Buttons";
 import { useState } from "react";
 import "./App.css";
+import { BsFillCalendar2DayFill } from "react-icons/bs";
 
 function App() {
   const [isAlertVisible, setAlertVisibility] = useState(false);
@@ -39,11 +40,12 @@ function App() {
         </Alert>
       )}
       <Buttons
-        color="light"
+        color="primary"
         onClick={() => setAlertVisibility(!isAlertVisible)}
       >
         My Button
       </Buttons>
+      <BsFillCalendar2DayFill color="red" size="40" />
     </div>
   );
 }
