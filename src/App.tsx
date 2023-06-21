@@ -4,6 +4,7 @@ import Buttons from "./components/Buttons/Buttons";
 import { useState } from "react";
 import "./App.css";
 import { BsFillCalendar2DayFill } from "react-icons/bs";
+import Like from "./components/Like";
 
 function App() {
   const [isAlertVisible, setAlertVisibility] = useState(false);
@@ -20,7 +21,7 @@ function App() {
   const thingHeading: string = "Things";
   return (
     <div>
-      <ListGroup
+      {/* <ListGroup
         items={characters}
         heading={charHeading}
         onSelectItem={(item: string): void => {
@@ -45,7 +46,8 @@ function App() {
       >
         My Button
       </Buttons>
-      <BsFillCalendar2DayFill color="red" size="40" />
+      <BsFillCalendar2DayFill color="red" size="40" /> */}
+      <Like onClick={() => console.log("Clicked")} />
     </div>
   );
 }
