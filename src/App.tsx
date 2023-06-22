@@ -8,6 +8,7 @@ import Like from "./components/Like";
 import { produce } from "immer";
 import Navbar from "./components/Navbar";
 import Cart from "./components/Cart";
+import ExpandableText from "./components/ExpandableText";
 
 function App() {
   const [isAlertVisible, setAlertVisibility] = useState(false);
@@ -119,7 +120,7 @@ function App() {
       </Buttons>
       <BsFillCalendar2DayFill color="red" size="40" /> */}
       {/* <Like onClick={() => console.log("Clicked")} /> */}
-      <Navbar productsSize={products.length} />
+      {/* <Navbar productsSize={products.length} />
       {bugs.map((bug) => (
         <p key={bug.id}>
           {bug.title} {bug.active ? "To Be fixed" : "FiXeD"}
@@ -150,7 +151,20 @@ function App() {
           </ul>
         </p>
       ))}
-      <button onClick={handleIncreaseCartItemSize}>Improve Cart Size</button>
+      <button onClick={handleIncreaseCartItemSize}>Improve Cart Size</button> */}
+      <ExpandableText maxChars={20}>
+        Lorem ipsum dolor, sit amet consectetur adipisicing elit. A debitis
+        tempore minima harum saepe esse at dolorem nisi! Iste recusandae omnis,
+        eligendi nemo velit vel saepe nam, incidunt quos beatae illum quam
+        adipisci quia ad, ea nisi dolorum aperiam commodi officia assumenda
+        veritatis officiis aut est. Ipsam maxime facilis atque aut temporibus,
+        explicabo tempora assumenda earum animi sapiente iste consectetur cum,
+        alias, non similique. Ad est tenetur obcaecati mollitia adipisci, cumque
+        saepe cum, deserunt blanditiis eum quos quia sed, enim autem omnis et
+        accusamus quo? Repellendus ratione consectetur aspernatur tempore quidem
+        ipsum quaerat voluptatem nobis, aperiam, omnis deleniti necessitatibus
+        harum?
+      </ExpandableText>
     </div>
   );
 }
