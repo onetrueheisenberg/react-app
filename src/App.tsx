@@ -9,6 +9,7 @@ import { produce } from "immer";
 import Navbar from "./components/Navbar";
 import Cart from "./components/Cart";
 import ExpandableText from "./components/ExpandableText";
+import Form from "./components/Form";
 
 function App() {
   const [isAlertVisible, setAlertVisibility] = useState(false);
@@ -152,7 +153,7 @@ function App() {
         </p>
       ))}
       <button onClick={handleIncreaseCartItemSize}>Improve Cart Size</button> */}
-      <ExpandableText maxChars={20}>
+      {/* <ExpandableText maxChars={20}>
         Lorem ipsum dolor, sit amet consectetur adipisicing elit. A debitis
         tempore minima harum saepe esse at dolorem nisi! Iste recusandae omnis,
         eligendi nemo velit vel saepe nam, incidunt quos beatae illum quam
@@ -164,7 +165,8 @@ function App() {
         accusamus quo? Repellendus ratione consectetur aspernatur tempore quidem
         ipsum quaerat voluptatem nobis, aperiam, omnis deleniti necessitatibus
         harum?
-      </ExpandableText>
+      </ExpandableText> */}
+      <Form />
     </div>
   );
 }
