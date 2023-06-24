@@ -1,21 +1,31 @@
 import { FormEvent, useRef, useState } from "react";
 import { FieldValues, useForm } from "react-hook-form";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
 type Person = {
   name?: string;
   age?: number;
 };
 
-interface FormData {
-  name: string;
-  age: number;
-}
-
+const schema = z.object({
+  name: z
+    .string()
+    .min(3, { message: "Name should be at least 3 characters long." }),
+  age: z
+    .number({ invalid_type_error: "Age is necessary" })
+    .min(18, { message: "Not allowed for people younger than 18" }),
+});
+// interface FormData {
+//   name: string;
+//   age: number;
+// }
+type FormData = z.infer<typeof schema>;
 const Form = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
-  } = useForm<FormData>();
+    formState: { errors, isValid },
+  } = useForm<FormData>({ resolver: zodResolver(schema) });
   const onSubmit = (data: FieldValues) => console.log(data);
   console.log(errors);
   const nameRef = useRef<HTMLInputElement>(null);
@@ -43,19 +53,12 @@ const Form = () => {
           //   setPerson({ ...person, name: event.target.value })
           // }
           // value={person.name}
-          {...register("name", { minLength: 3, required: true })}
+          {...register("name")}
           id="name"
           type="text"
           className="form-control"
         />
-        {errors.name?.type === "required" && (
-          <p className="text-danger">Name is required.</p>
-        )}
-        {errors.name?.type === "minLength" && (
-          <p className="text-danger">
-            Name should be minimum length of 3 characters.
-          </p>
-        )}
+        {errors.name && <p className="text-danger">{errors.name.message}</p>}
       </div>
       <div className="mb-3">
         <label htmlFor="age" className="form-label">
@@ -66,13 +69,14 @@ const Form = () => {
           //   setPerson({ ...person, age: Number(event.target.value) })
           // }
           // value={person.age}
-          {...register("age")}
+          {...register("age", { valueAsNumber: true })}
           id="age"
           type="number"
           className="form-control"
         />
+        {errors.age && <p className="text-danger">{errors.age.message}</p>}
       </div>
-      <button className="btn btn-primary" type="submit">
+      <button disabled={!isValid} className="btn btn-primary" type="submit">
         Submit
       </button>
     </form>
