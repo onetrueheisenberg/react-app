@@ -1,11 +1,11 @@
-import { FormEvent, useRef, useState } from "react";
+// import { FormEvent, useRef, useState } from "react";
 import { FieldValues, useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-type Person = {
-  name?: string;
-  age?: number;
-};
+// type Person = {
+//   name?: string;
+//   age?: number;
+// };
 
 const schema = z.object({
   name: z
@@ -28,8 +28,8 @@ const Form = () => {
   } = useForm<FormData>({ resolver: zodResolver(schema) });
   const onSubmit = (data: FieldValues) => console.log(data);
   console.log(errors);
-  const nameRef = useRef<HTMLInputElement>(null);
-  const ageRef = useRef<HTMLInputElement>(null);
+  // const nameRef = useRef<HTMLInputElement>(null);
+  // const ageRef = useRef<HTMLInputElement>(null);
   // const [person, setPerson] = useState({
   //   name: "",
   //   age: 0,
