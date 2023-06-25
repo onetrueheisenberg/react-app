@@ -11,7 +11,7 @@ const types = [
   "Entertainment",
 ] as const;
 
-const Select = ({ handleSelector }: Props) => {
+const ExpenseFilter = ({ handleSelector }: Props) => {
   return (
     <div className="mb-3">
       <select
@@ -30,4 +30,4 @@ const Select = ({ handleSelector }: Props) => {
   );
 };
 
-export default Select;
+export default ExpenseFilter;

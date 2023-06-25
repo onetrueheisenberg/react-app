@@ -1,4 +1,3 @@
-import SpendsData from "./../../App";
 import * as React from "react";
 import Paper from "@mui/material/Paper";
 import Table from "@mui/material/Table";
@@ -10,9 +9,10 @@ import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import Button from "@mui/material/Button";
 import DeleteIcon from "@mui/icons-material/Delete";
+import { SpendsData } from "../../ExpenseTrackerApp";
 
 interface Props {
-  children: (typeof SpendsData)[];
+  children: SpendsData[];
   onDelete: (id: string) => void;
 }
 
@@ -52,15 +52,15 @@ const columns: readonly Column[] = [
     format: (value: number) => numberFormat(value),
   },
   {
-    id: "Delete",
+    id: "delete",
     label: "Delete this item",
     minWidth: 170,
     align: "right",
   },
 ];
 
-const TableData = ({ children, onDelete }: Props) => {
-  const rows: (typeof SpendsData)[] = children;
+const ExpenseForm = ({ children, onDelete }: Props) => {
+  const rows: SpendsData[] = children;
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
@@ -109,14 +109,14 @@ const TableData = ({ children, onDelete }: Props) => {
                       return (
                         <TableRow hover role="checkbox" tabIndex={-1} key={idx}>
                           {columns.map((column) => {
-                            const value: any = row[column.id];
+                            const value = row[column.id];
                             return (
                               <>
                                 <TableCell key={column.id} align={column.align}>
                                   {column.format && typeof value === "number"
                                     ? column.format(value)
                                     : value}
-                                  {column.id === "Delete" ? (
+                                  {column.id === "delete" ? (
                                     <Button
                                       variant="outlined"
                                       sx={{ color: "red", borderColor: "red" }}
@@ -161,4 +161,4 @@ const TableData = ({ children, onDelete }: Props) => {
   );
 };
 
-export default TableData;
+export default ExpenseForm;
