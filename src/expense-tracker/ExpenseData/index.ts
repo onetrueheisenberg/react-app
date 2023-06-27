@@ -1,3 +1,3 @@
-import ExpenseForm from './ExpenseForm';
+import ExpenseData from './ExpenseData';
 
-export default ExpenseForm;
+export default ExpenseData;

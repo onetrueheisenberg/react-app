@@ -28,6 +28,7 @@ const ExpenseTrackerForm = ({ onSubmit }: Props) => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors, isValid },
   } = useForm<FormData>({ resolver: zodResolver(schema) });
   // const onSubmit = (data: FieldValues) => {
@@ -43,7 +44,12 @@ const ExpenseTrackerForm = ({ onSubmit }: Props) => {
   //   console.log(spends);
   // };
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form
+      onSubmit={handleSubmit((data) => {
+        onSubmit(data);
+        reset();
+      })}
+    >
       <div className="mb-3">
         <label htmlFor="description" className="form-label">
           Description

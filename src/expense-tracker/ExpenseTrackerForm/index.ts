@@ -1,3 +1,3 @@
-import ExpenseTracker from './ExpenseTracker';
+import ExpenseTrackerForm from './ExpenseTrackerForm';
 
-export default ExpenseTracker;
+export default ExpenseTrackerForm;
