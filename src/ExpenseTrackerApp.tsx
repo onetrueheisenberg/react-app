@@ -1,10 +1,10 @@
 import "./App.css";
-import ExpenseTracker from "./expense-tracker/ExpenseTracker";
+import ExpenseTrackerForm from "./expense-tracker/ExpenseTrackerForm";
 import { useState } from "react";
 import { FieldValues } from "react-hook-form";
 import * as uuid from "uuid";
 import ExpenseFilter from "./expense-tracker/ExpenseFilter";
-import ExpenseForm from "./expense-tracker/ExpenseForm";
+import ExpenseData from "./expense-tracker/ExpenseData";
 
 export type SpendsData = {
   description: string;
@@ -40,10 +40,10 @@ const ExpenseTrackerApp = () => {
   return (
     <>
       <h1>Please enter your spends here</h1>
-      <ExpenseTracker onSubmit={onSubmit} />
+      <ExpenseTrackerForm onSubmit={onSubmit} />
       <h1>Here's your tabulated spends</h1>
       <ExpenseFilter handleSelector={handleSelector} />
-      <ExpenseForm
+      <ExpenseData
         children={
           filter === "All" ? spends : spends.filter((el) => el.type === filter)
         }

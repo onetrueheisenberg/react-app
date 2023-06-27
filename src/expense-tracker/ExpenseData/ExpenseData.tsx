@@ -59,7 +59,7 @@ const columns: readonly Column[] = [
   },
 ];
 
-const ExpenseForm = ({ children, onDelete }: Props) => {
+const ExpenseData = ({ children, onDelete }: Props) => {
   const rows: SpendsData[] = children;
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
@@ -161,4 +161,4 @@ const ExpenseForm = ({ children, onDelete }: Props) => {
   );
 };
 
-export default ExpenseForm;
+export default ExpenseData;

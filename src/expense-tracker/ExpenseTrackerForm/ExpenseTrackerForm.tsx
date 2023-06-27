@@ -24,7 +24,7 @@ const schema = z.object({
 
 type FormData = z.infer<typeof schema>;
 
-const ExpenseTracker = ({ onSubmit }: Props) => {
+const ExpenseTrackerForm = ({ onSubmit }: Props) => {
   const {
     register,
     handleSubmit,
@@ -116,4 +116,4 @@ const ExpenseTracker = ({ onSubmit }: Props) => {
   );
 };
 
-export default ExpenseTracker;
+export default ExpenseTrackerForm;
