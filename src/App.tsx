@@ -1,33 +1,30 @@
 import { useEffect, useState } from "react";
 import ProductList from "./ProductList";
-import axios, { AxiosError, CanceledError } from "axios";
 import { CircularProgress } from "@mui/material";
-
-interface User {
-  id?: number;
-  name: string;
-  email: string;
-}
+import { CanceledError, AxiosError } from "./services/api-client";
+import userService, { User } from "./services/user-service";
+import useUsers from "./hooks/useUsers";
 
 const connect = () => console.log("connecting");
 const disconnect = () => console.log("disconnecting");
 
 const App = () => {
   const [category, setCategory] = useState("");
-  const [users, setUsers] = useState<User[]>([]);
-  const [error, setError] = useState("");
-  const [isLoading, setLoading] = useState(false);
+  const { users, setUsers, error, setError, isLoading, setLoading } =
+    useUsers();
   const deleteUser = (user: User) => {
-    const originalUsers = [...users];
-    setUsers(users.filter((el) => el.id !== user.id));
-    axios
-      .delete(
-        `https://jsonplaceholder.typicode.com/usersasdjjasnajnd/${user.id}`
-      )
-      .catch((err) => {
-        console.log(err.message);
-        setUsers(originalUsers);
-      });
+    if (user.id) {
+      const originalUsers = [...users];
+      setUsers(users.filter((el) => el.id !== user.id));
+      const deleteRequest = userService.delete(user.id);
+      deleteRequest
+        .then(() => {
+          console.log("delete successful");
+        })
+        .catch((err) => {
+          setUsers(originalUsers);
+        });
+    }
   };
 
   const addUser = () => {
@@ -37,8 +34,8 @@ const App = () => {
       email: "james@bond.com",
     };
     setUsers([...users, user]);
-    axios
-      .post(`https://jsonplaceholder.typicode.com/usersjsadnajsnajdsn`, user)
+    const { request, cancel } = userService.add(user);
+    request
       .then(({ data: savedUser }) => setUsers([...users, savedUser]))
       .catch((err) => {
         setError(err.message);
@@ -46,37 +43,24 @@ const App = () => {
         console.log(err);
       });
   };
-  useEffect(() => {
-    const controller = new AbortController();
-    setLoading(true);
-    // const fetch = async () => {
-    //   try {
-    //     const response = await axios.get<User[]>(
-    //       "https://jsonplaceholder.typicode.com/users",
-    //       { signal: controller.signal }
-    //     );
-    //     setUsers(response.data);
-    //   } catch (err) {
-    //     if (err instanceof CanceledError) return;
-    //     setError((err as AxiosError).message);
-    //   } finally {
-    //     setLoading(false);
-    //   }
-    // };
-    // fetch();
-    axios
-      .get<User[]>("https://jsonplaceholder.typicode.com/users", {
-        signal: controller.signal,
-      })
-      .then((response) => setUsers(response.data))
-      .catch((err) => setError((err as AxiosError).message))
-      .finally(() => setLoading(false));
 
-    return () => {
-      // controller.abort();
-      disconnect();
+  const updateUser = (user: User) => {
+    const originalUsers = [...users];
+    let newUser: User = {
+      name: "james bond",
+      email: "james@bond.com",
+      id: user.id,
     };
-  }, []);
+    setUsers(users.map((el) => (el.id === user.id ? newUser : el)));
+    const request = userService.update<User>(newUser);
+    request
+      .then(({ data: savedUser }) => setUsers([...users, savedUser]))
+      .catch((err) => {
+        setError(err.message);
+        setUsers(originalUsers);
+        console.log(err);
+      });
+  };
   return (
     <>
       <div>
@@ -99,16 +83,24 @@ const App = () => {
             <ul className="list-group">
               {users.map((user) => (
                 <li
-                  key={user.id}
+                  key={user.name}
                   className="list-group-item d-flex justify-content-between"
                 >
                   {user.name} {user.id} {user.email}
-                  <button
-                    onClick={() => deleteUser(user)}
-                    className="btn btn-outline-danger"
-                  >
-                    Delete
-                  </button>
+                  <div>
+                    <button
+                      onClick={() => updateUser(user)}
+                      className="btn btn-outline-secondary mx-1"
+                    >
+                      Edit
+                    </button>
+                    <button
+                      onClick={() => deleteUser(user)}
+                      className="btn btn-outline-danger"
+                    >
+                      Delete
+                    </button>
+                  </div>
                 </li>
               ))}
             </ul>
